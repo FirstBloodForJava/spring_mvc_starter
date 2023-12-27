@@ -12,6 +12,8 @@ public class ExampleController {
 
     @RequestMapping("/static/index")
     public String staticIndex() {
+        String result = null;
+        System.out.println(result.toString());
         return "staticIndex!";
     }
 }
