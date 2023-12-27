@@ -32,15 +32,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 }
 class ReturnInfo {
     int status;
-    String exceptionMsg;
+    String note;
 
     public ReturnInfo(){
 
     }
 
-    public ReturnInfo(int status, String exceptionMsg){
+    public ReturnInfo(int status, String note){
         this.status = status;
-        this.exceptionMsg = exceptionMsg;
+        this.note = note;
     }
 
 }
