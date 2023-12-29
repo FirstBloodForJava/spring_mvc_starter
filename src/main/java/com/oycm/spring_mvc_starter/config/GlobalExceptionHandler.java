@@ -1,5 +1,8 @@
 package com.oycm.spring_mvc_starter.config;
 
+import com.oycm.spring_mvc_starter.dto.ReturnInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,11 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private final Log log = LogFactory.getLog(this.getClass());
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     ReturnInfo handleControllerException(HttpServletRequest request, Throwable ex) {
         HttpStatus status = getStatus(request);
-        return new ReturnInfo(status.value(), ex.getMessage());
+        log.error(status.value(),ex);
+        return ReturnInfo.buildErrorInfo(ex.getMessage());
     }
 
     private HttpStatus getStatus(HttpServletRequest request) {
@@ -30,18 +36,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return HttpStatus.valueOf(statusCode);
     }
 }
-class ReturnInfo {
-    int status;
-    String note;
 
-    public ReturnInfo(){
-
-    }
-
-    public ReturnInfo(int status, String note){
-        this.status = status;
-        this.note = note;
-    }
-
-}
 

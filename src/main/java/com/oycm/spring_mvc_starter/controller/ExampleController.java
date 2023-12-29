@@ -1,5 +1,6 @@
 package com.oycm.spring_mvc_starter.controller;
 
+import com.oycm.spring_mvc_starter.dto.ReturnInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExampleController {
 
     @RequestMapping("/static/index")
-    public String staticIndex() {
+    public ReturnInfo staticIndex() {
+
+        ReturnInfo info = new ReturnInfo();
+        info.setStatus(1);
+
         String result = null;
         System.out.println(result.toString());
-        return "staticIndex!";
+
+        info.setNote("/static/index");
+        return info;
     }
 
     @GetMapping("/statics/index.*")
