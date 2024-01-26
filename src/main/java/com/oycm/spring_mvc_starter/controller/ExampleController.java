@@ -1,9 +1,8 @@
 package com.oycm.spring_mvc_starter.controller;
 
 import com.oycm.spring_mvc_starter.dto.ReturnInfo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.oycm.spring_mvc_starter.dto.User;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ouyangcm
@@ -11,6 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ExampleController {
+
+    @PostMapping("/static/user")
+    public User userInfo(@RequestBody(required = false) User user){
+        user.setAge(19);
+        return user;
+    }
 
     @RequestMapping("/static/index")
     public ReturnInfo staticIndex() {
