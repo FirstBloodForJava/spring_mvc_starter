@@ -1,5 +1,6 @@
 package com.oycm.spring_mvc_starter.config;
 
+import com.oycm.spring_mvc_starter.controller.ExampleController;
 import com.oycm.spring_mvc_starter.dto.ReturnInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author ouyangcm
  * create 2023/12/27 15:29
  */
-@ControllerAdvice
+@ControllerAdvice(assignableTypes = {ExampleController.class})
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private final Log log = LogFactory.getLog(this.getClass());
