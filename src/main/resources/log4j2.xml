@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="INFO">
+    <!-- 全局参数 -->
+    <Properties>
+        <!--<Property name="pattern" value="[%date{yyyy/MM/dd HH:mm:ss.SSS}] [%thread] %-5level  - %msg%n"/>-->
+
+        <Property name="pattern" value="%d{HH:mm:ss.SSS} [%-5level] [%thread] %logger{36} - %msg%n"/>
+
+        <!-- 改成各服务应用名称 -->
+        <Property name="serviceName" value="spring-mvc-starter"/>
+        <property name="errorName" value="error" />
+        <property name="path" value="./logs/" />
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+        </Console>
+
+        <RollingFile name="errorFile" fileName="${path}/${errorName}.log" filePattern="${path}/${errorName}.log.%d{yyyy-MM-dd}">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${pattern}" />
+            <Policies>
+                <!-- TimeBasedTriggeringPolicy需要和filePattern配套使用，由于filePattern配置的时间最小粒度是dd天，所以表示每一天新建一个文件保存日志。SizeBasedTriggeringPolicy表示当文件大小大于指定size时
+               ，生成新的文件保存日志。 -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+
+
+        <RollingFile name="infoFile" fileName="${path}/${serviceName}.log" filePattern="${path}/${serviceName}.log.%d{yyyy-MM-dd}">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${pattern}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+
+        </RollingFile>
+    </Appenders>
+
+
+    <Loggers>
+        <Logger name="org.springframework" level="INFO" />
+        <Root level="INFO">
+            <AppenderRef ref="console"></AppenderRef>
+            <AppenderRef ref="infoFile"></AppenderRef>
+            <AppenderRef ref="errorFile"></AppenderRef>
+        </Root>
+    </Loggers>
+
+</configuration>
