@@ -22,6 +22,14 @@ public class Goods {
         this.iName = iName;
     }
 
+    public String getiName() {
+        return iName;
+    }
+
+    public void setiName(String iName) {
+        this.iName = iName;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -36,14 +44,6 @@ public class Goods {
 
     public void setIDescription(String iDescription) {
         this.iDescription = iDescription;
-    }
-
-    public String getiName() {
-        return iName;
-    }
-
-    public void setiName(String iName) {
-        this.iName = iName;
     }
 
     public String getiDescription() {
