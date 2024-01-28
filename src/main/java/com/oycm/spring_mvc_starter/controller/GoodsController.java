@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class GoodsController {
@@ -17,11 +18,20 @@ public class GoodsController {
     private Gson gson = new Gson();
 
     @PostMapping("/static/goods")
-    public ReturnInfo userInfo(@RequestBody Goods goods){
+    public ReturnInfo goodsInfo(@RequestBody Goods goods){
         log.info(gson.toJson(goods));
         ReturnInfo info = new ReturnInfo();
         info.map = new HashMap<>();
         info.map.put("data", goods);
+        return info;
+    }
+
+    @PostMapping("/static/goodsList")
+    public ReturnInfo goodsListInfo(@RequestBody List<Goods> goodsList){
+        log.info(gson.toJson(goodsList));
+        ReturnInfo info = new ReturnInfo();
+        info.map = new HashMap<>();
+        info.map.put("data", goodsList);
         return info;
     }
 }
