@@ -26,6 +26,43 @@ public class HttpUtils {
     }
 
 
+    public static String httpGet(String url, Map<String,Object> body, Map<String,String> header) throws IOException{
+        StringBuilder urlBuilder = new StringBuilder(url);
+        urlBuilder.append("?");
+
+        for (Map.Entry<String, Object> keySet : body.entrySet()) {
+            urlBuilder.append(keySet.getKey());
+            urlBuilder.append("=");
+            urlBuilder.append(keySet.getValue());
+            urlBuilder.append("&");
+        }
+
+        URL apiUrl = new URL(urlBuilder.substring(0,urlBuilder.length() - 1));
+
+        HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+
+        connection.setRequestMethod("GET");
+
+        // 设置请求头
+        for (Map.Entry<String, String> keySet : header.entrySet()) {
+            connection.setRequestProperty(keySet.getKey(), keySet.getValue());
+        }
+
+        // 设置连接时间
+        connection.setConnectTimeout(50000);
+        connection.setReadTimeout(50000);
+
+        // 响应流 输入
+        BufferedReader inReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String tempLine = null;
+        while ((tempLine = inReader.readLine()) != null){
+            response.append(tempLine);
+        }
+        inReader.close();
+        return response.toString();
+    }
+
     public static String httpPost(String url, Map<String,Object> body, Map<String,String> header) throws IOException {
 
         URL apiUrl = new URL(url);
@@ -40,10 +77,10 @@ public class HttpUtils {
         }
 
         // 设置连接时间
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
+        connection.setConnectTimeout(50000);
+        connection.setReadTimeout(50000);
 
-        // 输出流
+        // 输出流 设置请求头
         connection.setDoOutput(true);
 
         DataOutputStream outPut = new DataOutputStream(connection.getOutputStream());
@@ -52,6 +89,7 @@ public class HttpUtils {
 
         System.out.println(connection.getResponseCode());
 
+        // 响应流 输入
         BufferedReader inReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuilder response = new StringBuilder();
         String tempLine = null;
