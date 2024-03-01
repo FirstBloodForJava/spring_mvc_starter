@@ -9,8 +9,7 @@ import java.util.Iterator;
 public class SpringCoreConcurrentReferenceHashMap {
 
     public static void main(String[] args) {
-
-        for (long i = Long.MIN_VALUE; i <= Long.MAX_VALUE ; i++) {
+        for (long i = Long.MIN_VALUE; i < Long.MAX_VALUE ; i += 1L) {
             StringBuilder s1 = new StringBuilder();
             StringBuilder s2 = new StringBuilder();
 
@@ -27,7 +26,7 @@ public class SpringCoreConcurrentReferenceHashMap {
                 System.err.println(s1);
                 System.err.println(s2);
             }
-            break;
+            //break;
         }
 
     }
