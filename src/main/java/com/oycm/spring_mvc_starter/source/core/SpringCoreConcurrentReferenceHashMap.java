@@ -1,5 +1,7 @@
 package com.oycm.spring_mvc_starter.source.core;
 
+import org.springframework.util.ConcurrentReferenceHashMap;
+
 import java.util.Iterator;
 
 /**
@@ -9,6 +11,12 @@ import java.util.Iterator;
 public class SpringCoreConcurrentReferenceHashMap {
 
     public static void main(String[] args) {
+
+        ConcurrentReferenceHashMap<String, String> referenceHashMap = new ConcurrentReferenceHashMap<>();
+        referenceHashMap.put("k1", "v1");
+        referenceHashMap.put("k2", "v2");
+        System.out.println(referenceHashMap);
+
         for (long i = Long.MIN_VALUE; i < Long.MAX_VALUE ; i += 1L) {
             StringBuilder s1 = new StringBuilder();
             StringBuilder s2 = new StringBuilder();
