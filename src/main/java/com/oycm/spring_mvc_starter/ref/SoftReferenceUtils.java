@@ -19,8 +19,12 @@ public class SoftReferenceUtils {
 
         ReferenceQueue<BigObject> referenceQueue = new ReferenceQueue<BigObject>();
         List<SoftReference<BigObject>> referenceList = new ArrayList<>();
+        List<BigObject> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             SoftReference<BigObject> userSoftReference = new SoftReference<>(new BigObject(), referenceQueue);
+            if (i < 2){
+                list.add(userSoftReference.get());
+            }
             referenceList.add(userSoftReference);
             Reference<? extends BigObject> temp = referenceQueue.poll();
             System.out.println(i + ": " + temp);
@@ -32,5 +36,6 @@ public class SoftReferenceUtils {
                 System.out.println(i + ": " + referenceList.get(i));
             }
         }
+        System.out.println();
     }
 }
