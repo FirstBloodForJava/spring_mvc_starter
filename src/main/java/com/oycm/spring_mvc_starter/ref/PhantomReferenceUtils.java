@@ -21,9 +21,10 @@ public class PhantomReferenceUtils {
         List<PhantomReference<BigObject>> referenceList = new ArrayList<>();
         List<BigObject> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            PhantomReference<BigObject> userPhantomReference = new PhantomReference<>(new BigObject(), referenceQueue);
+            BigObject bigObject = new BigObject();
+            PhantomReference<BigObject> userPhantomReference = new PhantomReference<>(bigObject, referenceQueue);
             if (i < 10){
-                list.add(userPhantomReference.get());
+                list.add(bigObject);
             }
             referenceList.add(userPhantomReference);
             Reference<? extends BigObject> temp = referenceQueue.poll();
