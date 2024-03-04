@@ -12,6 +12,7 @@ import java.util.List;
  * @author ouyangcm
  * create 2024/3/4 10:36
  */
+@SuppressWarnings(value = "all")
 public class WeakReferenceUtils {
     public static void main(String[] args) {
 

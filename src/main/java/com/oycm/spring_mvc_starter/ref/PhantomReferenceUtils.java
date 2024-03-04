@@ -1,32 +1,31 @@
 package com.oycm.spring_mvc_starter.ref;
 
-
 import com.oycm.spring_mvc_starter.ref.pojo.BigObject;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
-import java.lang.ref.SoftReference;
+import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author ouyangcm
- * create 2024/3/1 14:08
+ * create 2024/3/4 13:27
  */
 @SuppressWarnings(value = "all")
-public class SoftReferenceUtils {
+public class PhantomReferenceUtils {
 
     public static void main(String[] args) {
 
         ReferenceQueue<BigObject> referenceQueue = new ReferenceQueue<BigObject>();
-        List<SoftReference<BigObject>> referenceList = new ArrayList<>();
+        List<PhantomReference<BigObject>> referenceList = new ArrayList<>();
         List<BigObject> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            SoftReference<BigObject> userSoftReference = new SoftReference<>(new BigObject(), referenceQueue);
-            if (i < 2){
-                list.add(userSoftReference.get());
+            PhantomReference<BigObject> userPhantomReference = new PhantomReference<>(new BigObject(), referenceQueue);
+            if (i < 10){
+                list.add(userPhantomReference.get());
             }
-            referenceList.add(userSoftReference);
+            referenceList.add(userPhantomReference);
             Reference<? extends BigObject> temp = referenceQueue.poll();
             System.out.println(i + ": " + temp);
         }
