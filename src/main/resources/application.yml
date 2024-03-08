@@ -1,7 +1,11 @@
 spring:
   mvc:
-    static-path-pattern: /statics/**
+    static-path-pattern: /statics1/**
   web:
     resources:
       static-locations:
         - classpath:/static/
+  profiles:
+    active: dev
+server:
+  port: 90
