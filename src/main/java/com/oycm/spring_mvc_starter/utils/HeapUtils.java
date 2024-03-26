@@ -92,6 +92,12 @@ class Heap{
         }
     }
 
+    void removeTop(){
+        queue[1] = queue[size];
+        queue[size--] = 0;
+        fixedDown(1);
+    }
+
     void heapify(){
         for (int i = size/2; i >= 1; i--) {
             fixedDown(i);
@@ -101,10 +107,11 @@ class Heap{
     private void fixedDown(int k){
         int j;
         while ((j = k << 1) <= size && j > 0){
-            if (j < size && queue[j] > queue[j + 1]){
+            // 子节点中取出最小的比较
+            if (j < size && queue[j] > queue[j+1]){
                 j++;
             }
-            // queue[j] 为最小
+            // 直到父节点 小于等于 子节点的最小
             if (queue[k] <= queue[j]){
                 break;
             }
