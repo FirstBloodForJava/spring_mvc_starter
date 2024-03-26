@@ -1,5 +1,7 @@
 package com.oycm.spring_mvc_starter.utils;
 
+import java.util.Arrays;
+
 /**
  * @author ouyangcm
  * create 2024/3/26 16:36
@@ -9,9 +11,14 @@ public class HeapUtils {
     public static void main(String[] args) {
 
         int[] ints = {0, 10, 9, 8, 4, 1, 3, 0};
-        Heap heap = new Heap(ints);
+        Heap heap = new Heap(ints, ints.length - 1);
         heap.heapify();
         printHeap(heap.queue);
+        System.out.println(ints[7 >> 1]);
+        System.out.println(ints[3]);
+        int i = 3;
+        System.out.println(ints[i++]);
+        System.out.println(ints[++i]);
     }
 
 
@@ -41,8 +48,48 @@ class Heap{
     int[] queue;
 
     Heap(int[] queue){
-        this.size = queue.length - 1;
         this.queue = queue;
+    }
+
+    Heap(int[] queue, int size){
+        this.size = size;
+        this.queue = queue;
+    }
+
+    /**
+     * 往堆中添加元素(小顶堆)
+     * @param e 元素
+     */
+    void add(int e){
+        if (size == queue.length - 1){
+            // 扩容
+            queue = Arrays.copyOf(queue, 2 * queue.length);
+        }
+        queue[++size] = e;
+        fixedUp(size);
+    }
+
+    private void fixedUp(int k){
+        // 写法一
+        while (k > 1){
+            int j = k >> 1;
+            if (queue[j] <= queue[k]){
+                // 小顶堆 i表示堆中数组下标,则满足queue[i] <= queue[2*i] queue[i] <= queue[2*i + 1]
+                // 其中j表示的就是i
+                break;
+            }
+            int temp = queue[k];
+            queue[k] = queue[j];
+            queue[j] = temp;
+            k = j;
+        }
+        // 写法二
+        while (k > 1 && queue[k >> 1] > queue[k]){
+            int temp = queue[k >> 1];
+            queue[k >> 1] = queue[k];
+            queue[k] = temp;
+            k = k >> 1;
+        }
     }
 
     void heapify(){
