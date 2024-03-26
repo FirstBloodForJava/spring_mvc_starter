@@ -1,3 +1,5 @@
 # Run Listeners
 #org.springframework.boot.SpringApplicationRunListener=\
 #com.oycm.spring_mvc_starter.custom.listener.CustomSpringApplicationRunListenerImpl
+#org.springframework.context.ApplicationContextInitializer=\
+#com.oycm.spring_mvc_starter.custom.initialize.CustomApplicationContextInitializerImpl
